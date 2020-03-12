@@ -24,3 +24,21 @@ func main() {
 	fmt.Printf("Servre is running on localhost%s", port)
 	panic(http.ListenAndServe(port, r))
 }
+
+type customClaims struct {
+	jwt.StandardClaims
+	Client string `json:"client"`
+	Channel string `json:"channel"`
+	Data userData `json:"data"`
+	Permissions map[string] permissionClaims `json:"permissions"`
+}
+
+type permissionClaims struct {
+	Publish	bool	`json:"publish"`
+	Subscribe	bool	`json:"subscribe"`
+}
+
+type userData struct {
+	Color string `json:"color"`
+	Name string `json:"name"`
+}
